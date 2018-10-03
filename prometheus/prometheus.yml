@@ -28,19 +28,19 @@ alerting:
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
 
-  - job_name: 'prometheus'
+  # - job_name: 'prometheus'
 
     # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
+  #   scrape_interval: 5s
 
-    static_configs:
-         - targets: ['localhost:9090']
+  #   static_configs:
+  #        - targets: ['localhost:9090']
 
 
-  - job_name: 'cadvisor'
+  # - job_name: 'cadvisor'
 
     # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
+    # scrape_interval: 5s
 
     # dns_sd_configs:
     # - names:
@@ -48,19 +48,38 @@ scrape_configs:
     #   type: 'A'
     #   port: 8080
 
-    static_configs:
-         - targets: ['cadvisor:8080']
+    # static_configs:
+    #      - targets: ['cadvisor:8080']
 
-  - job_name: 'node-exporter'
+  # - job_name: 'node-exporter'
 
     # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
+    # scrape_interval: 5s
 
-    dns_sd_configs:
-    - names:
-      - 'tasks.node-exporter'
-      type: 'A'
-      port: 9100
+    # dns_sd_configs:
+    # - names:
+    #   - 'tasks.node-exporter'
+    #   type: 'A'
+    #   port: 9100
     
-    static_configs:
-         - targets: ['node-exporter:9100']
+    # static_configs:
+    #      - targets: ['node-exporter:9100']
+  
+  - job_name: 'consul'
+    scrape_interval: 5s
+    consul_sd_configs:
+    - server: 'consul-server:8500'
+      services:
+      - prometheus
+      - node-exporter
+      - cadvisor
+    relabel_configs:
+      - source_labels: [__meta_consul_service_address]
+        target_label: address
+      - source_labels: [__meta_consul_service]
+        target_label: service
+      - source_labels: [__meta_consul_service_port]
+        target_label: port
+
+
+

@@ -12,6 +12,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.1.0
+    container_name: prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
@@ -30,13 +31,10 @@ services:
     networks:
       - back-tier
     restart: always
-#    deploy:
-#      placement:
-#        constraints:
-#          - node.hostname == ${HOSTNAME}
 
   node-exporter:
     image: prom/node-exporter
+    container_name: node-exporter
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
@@ -51,11 +49,10 @@ services:
     networks:
       - back-tier
     restart: always
-    deploy:
-      mode: global
 
   alertmanager:
     image: prom/alertmanager
+    container_name: alertmanager
     ports:
       - 9093:9093
     volumes:
@@ -66,12 +63,10 @@ services:
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
-#    deploy:
-#      placement:
-#        constraints:
-#          - node.hostname == ${HOSTNAME}
+
   cadvisor:
     image: google/cadvisor
+    container_name: cadvisor
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -82,11 +77,10 @@ services:
     networks:
       - back-tier
     restart: always
-    deploy:
-      mode: global
 
   grafana:
     image: grafana/grafana
+    container_name: grafana
     user: "104"
     depends_on:
       - prometheus
@@ -101,4 +95,25 @@ services:
       - back-tier
       - front-tier
     restart: always
+  
+  consul-server:
+    image: consul:latest
+    container_name: consul-server
+    networks:
+      - back-tier
+    ports:
+      - "8500:8500"
+    command: "agent -server -bootstrap -ui -client 0.0.0.0"
+    restart: always
 
+  registrator:
+    image: gliderlabs/registrator:latest
+    container_name: registrator
+    depends_on: 
+      - consul-server
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    command: "consul://consul-server:8500"
+    networks:
+      - back-tier
+    restart: always
