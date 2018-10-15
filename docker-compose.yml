@@ -7,9 +7,13 @@ volumes:
 networks:
   front-tier:
   back-tier:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.100.0/24
 
 services:
-
   prometheus:
     image: prom/prometheus:v2.1.0
     container_name: prometheus
