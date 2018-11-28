@@ -58,8 +58,7 @@
   "editable": true,
   "gnetId": 179,
   "graphTooltip": 1,
-  "id": null,
-  "iteration": 1533037835187,
+  "iteration": 1543396018630,
   "links": [],
   "panels": [
     {
@@ -175,7 +174,7 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 5,
+        "w": 6,
         "x": 6,
         "y": 1
       },
@@ -255,8 +254,8 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 4,
-        "x": 11,
+        "w": 6,
+        "x": 12,
         "y": 1
       },
       "id": 11,
@@ -335,8 +334,8 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 4,
-        "x": 15,
+        "w": 6,
+        "x": 18,
         "y": 1
       },
       "id": 31,
@@ -417,7 +416,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 6,
+        "w": 8,
         "x": 0,
         "y": 8
       },
@@ -503,8 +502,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 6,
-        "x": 6,
+        "w": 8,
+        "x": 8,
         "y": 8
       },
       "id": 6,
@@ -590,8 +589,8 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 7,
-        "x": 12,
+        "w": 8,
+        "x": 16,
         "y": 8
       },
       "id": 7,
@@ -666,7 +665,7 @@
       "fill": 4,
       "gridPos": {
         "h": 9,
-        "w": 6,
+        "w": 8,
         "x": 0,
         "y": 14
       },
@@ -762,8 +761,8 @@
       "fill": 3,
       "gridPos": {
         "h": 9,
-        "w": 6,
-        "x": 6,
+        "w": 8,
+        "x": 8,
         "y": 14
       },
       "id": 27,
@@ -861,8 +860,8 @@
       "fill": 3,
       "gridPos": {
         "h": 9,
-        "w": 7,
-        "x": 12,
+        "w": 8,
+        "x": 16,
         "y": 14
       },
       "id": 28,
@@ -965,7 +964,7 @@
       "grid": {},
       "gridPos": {
         "h": 10,
-        "w": 6,
+        "w": 7,
         "x": 0,
         "y": 24
       },
@@ -998,7 +997,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "container_cpu_load_average_10s{image!=\"\"}",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{image!=\"\"}[30s])) by (name)",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -1062,8 +1061,8 @@
       "grid": {},
       "gridPos": {
         "h": 10,
-        "w": 6,
-        "x": 6,
+        "w": 7,
+        "x": 7,
         "y": 24
       },
       "id": 2,
@@ -1153,7 +1152,7 @@
       "gridPos": {
         "h": 13,
         "w": 10,
-        "x": 12,
+        "x": 14,
         "y": 24
       },
       "id": 23,
@@ -1212,7 +1211,7 @@
       "grid": {},
       "gridPos": {
         "h": 14,
-        "w": 6,
+        "w": 7,
         "x": 0,
         "y": 34
       },
@@ -1308,8 +1307,8 @@
       "grid": {},
       "gridPos": {
         "h": 14,
-        "w": 6,
-        "x": 6,
+        "w": 7,
+        "x": 7,
         "y": 34
       },
       "id": 9,
@@ -1396,9 +1395,9 @@
       "datasource": "Prometheus",
       "fontSize": "100%",
       "gridPos": {
-        "h": 10,
+        "h": 11,
         "w": 10,
-        "x": 12,
+        "x": 14,
         "y": 37
       },
       "id": 30,
@@ -1466,7 +1465,7 @@
       "type": "table"
     }
   ],
-  "refresh": "10s",
+  "refresh": "5s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [
@@ -1547,7 +1546,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1578,5 +1577,5 @@
   "timezone": "browser",
   "title": "Docker Prometheus Monitoring",
   "uid": "64nrElFmk",
-  "version": 4
+  "version": 1
 }
