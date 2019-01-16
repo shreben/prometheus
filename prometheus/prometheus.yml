@@ -49,5 +49,5 @@ scrape_configs:
       'match[]':
         - '{job="prometheus"}' 
     static_configs:
-            - targets: ['prometheus-slave:8090']
+            - targets: ['prometheus-slave:9090']
 
