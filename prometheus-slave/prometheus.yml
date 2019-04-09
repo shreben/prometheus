@@ -7,8 +7,8 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-      monitor: datacenter
-      cluster: dev
+    monitor: datacenter
+    cluster: dev
 
 rule_files:
   - 'alert.rules'

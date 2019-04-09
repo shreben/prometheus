@@ -5,6 +5,8 @@ apiVersion: 1
 deleteDatasources:
   - name: Prometheus
     orgId: 1
+  - name: Prometheus Alertmanager
+    orgId: 1
 
 # list of datasources to insert/update depending
 # whats available in the database
@@ -48,3 +50,12 @@ datasources:
   version: 1
   # <bool> allow users to edit datasources from the UI.
   editable: true
+- name: Prometheus Alertmanager
+  # <string, required> datasource type. Required
+  type: camptocamp-prometheus-alertmanager-datasource
+  # <string, required> access mode. direct or proxy. Required
+  access: direct
+  # <int> org id. will default to orgId 1 if not specified
+  orgId: 1
+  # <string> url
+  url: http://alertmanager:9093
