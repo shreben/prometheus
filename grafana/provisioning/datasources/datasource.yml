@@ -7,6 +7,8 @@ deleteDatasources:
     orgId: 1
   - name: Prometheus Alertmanager
     orgId: 1
+  - name: InfluxDB
+    orgId: 1
 
 # list of datasources to insert/update depending
 # whats available in the database
@@ -51,11 +53,13 @@ datasources:
   # <bool> allow users to edit datasources from the UI.
   editable: true
 - name: Prometheus Alertmanager
-  # <string, required> datasource type. Required
   type: camptocamp-prometheus-alertmanager-datasource
-  # <string, required> access mode. direct or proxy. Required
-  access: direct
-  # <int> org id. will default to orgId 1 if not specified
+  access: proxy
   orgId: 1
-  # <string> url
   url: http://alertmanager:9093
+- name: InfluxDB
+  type: influxdb
+  access: proxy
+  orgId: 1
+  url: http://influxdb:8086
+  database: telegraf

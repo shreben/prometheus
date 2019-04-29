@@ -156,6 +156,7 @@ services:
     networks:
       - back-tier
     restart: always
+    hostname: telegraf
   # Define an InfluxDB service
   influxdb:
     image: influxdb:1.3.5
@@ -167,6 +168,7 @@ services:
     networks:
       - back-tier
     restart: always
+    hostname: influxdb
   # Define a Chronograf service
   chronograf:
     image: chronograf:1.3.8
